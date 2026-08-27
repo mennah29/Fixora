@@ -1,0 +1,13 @@
+# Exclude heavy assets and development files from Vercel Lambda bundle
+Maintience/
+data/*.pdf
+*.ipynb
+tests/
+scripts/
+Dockerfile
+docker-compose.yml
+evaluation_report.json
+evaluate_rag.py
+pytest.ini
+requirements-dev.txt
+app.py
