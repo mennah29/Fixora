@@ -1,18 +1,17 @@
 {
   "functions": {
-    "api/*.py": {
-      "includeFiles": "data/all_device_fault_chunks.json",
-      "excludeFiles": "{Maintience/**,data/*.pdf,*.ipynb,tests/**,scripts/**}"
+    "api/*.js": {
+      "includeFiles": "data/all_device_fault_chunks.json"
     }
   },
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "/api/index.py"
+      "destination": "/api/index.js"
     },
     {
       "source": "/api",
-      "destination": "/api/index.py"
+      "destination": "/api/index.js"
     }
   ]
 }
