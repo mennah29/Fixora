@@ -1,4 +1,10 @@
 {
+  "functions": {
+    "api/index.py": {
+      "includeFiles": "data/all_device_fault_chunks.json,static/**",
+      "excludeFiles": "{Maintience/**,data/*.pdf,*.ipynb,tests/**,scripts/**}"
+    }
+  },
   "rewrites": [
     {
       "source": "/(.*)",
