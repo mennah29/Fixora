@@ -230,16 +230,27 @@
       renderChat();
 
       const device = document.getElementById('deviceSelect').value;
-      try {
-        const res = await fetch('/api/query', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ query: q, device_name: device, top_k: 5 })
-        });
-        const data = await res.json();
+      let data = null;
+      const endpoints = ['/api/query', '/api', '/v1/query', '/query'];
+      for (const ep of endpoints) {
+        try {
+          const res = await fetch(ep, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ query: q, device_name: device, top_k: 5 })
+          });
+          if (res.ok) {
+            data = await res.json();
+            break;
+          }
+        } catch (e) {
+          console.warn('Endpoint', ep, 'failed:', e);
+        }
+      }
+      if (data) {
         s.messages.push({ role: 'bot', text: data.answer || data.fault_meaning, data: data });
-      } catch (err) {
-        s.messages.push({ role: 'bot', text: 'Error contacting diagnostic engine.', data: {} });
+      } else {
+        s.messages.push({ role: 'bot', text: 'Error contacting diagnostic engine. Please check your network or API status.', data: {} });
       }
       renderChat();
     }

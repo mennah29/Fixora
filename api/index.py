@@ -178,18 +178,29 @@ STRICT RULES:
             print(f"Groq LLM call error: {e}")
     
     top = context_chunks[0]
+    is_hazard = any(w in (query + " " + top["text"]).upper() for w in ("HIGH VOLTAGE", "LOTO", "SHOCK", "LETHAL", "RADIATION", "HAZARD", "DANGER"))
+    
+    checklist = [line.strip() for line in top["text"].splitlines() if len(line.strip()) > 10][:5]
+    if not checklist:
+        checklist = ["Inspect device connections and consult manual schematics."]
+        
     return {
         "status": "FOUND_IN_MANUAL",
-        "fault_meaning": f"Reference procedure located in {top['manual_name']} (Page {top['page_number']}).",
-        "checklist": [line.strip() for line in top["text"].splitlines() if len(line.strip()) > 10][:5],
+        "has_high_priority_safety": is_hazard,
+        "safety_header": "⚠️ HIGH PRIORITY SAFETY INSTRUCTIONS DETECTED" if is_hazard else None,
+        "safety_body": "Lethal voltage / hazardous condition detected. Follow Lockout/Tagout (LOTO) protocols before opening panels." if is_hazard else None,
+        "fault_meaning": f"Procedure extracted from {top['manual_name']} (Page {top['page_number']}).",
+        "checklist": checklist,
         "source_citation": {"manual": top["manual_name"], "page": top["page_number"]},
         "speech_text": f"I found the procedure in the service manual on page {top['page_number']}.",
-        "has_high_priority_safety": False,
         "answer": f"**Manual Reference ({top['manual_name']} p.{top['page_number']}):**\n\n{top['text']}"
     }
 
+@app.post("/query")
 @app.post("/api/query")
 @app.post("/v1/query")
+@app.post("/api/v1/query")
+@app.post("/")
 async def query_endpoint(req: QueryRequest):
     try:
         chunks = retrieve_chunks(req.query, req.device_name, req.top_k or 5)
@@ -207,11 +218,13 @@ async def query_endpoint(req: QueryRequest):
             }
         )
 
+@app.get("/api/health")
+@app.get("/health/ready")
+@app.get("/health/live")
 @app.get("/api")
-@app.get("/api/")
 @app.get("/")
-async def root():
+async def health_check():
     return {"status": "ok", "message": "Fixora Industrial AI Assistant API is live", "chunks_loaded": len(CHUNKS_DATA)}
 
-# Export ASGI FastAPI app directly for Vercel Python Runtime
+# Direct ASGI Export for Vercel Python Runtime
 app = app
