@@ -769,6 +769,20 @@ else:
             st.session_state.registered = False
             st.rerun()
 
+        # Download Architecture & Pipeline PDF
+        pdf_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "Fixora_Architecture_and_Pipeline.pdf")
+        if os.path.exists(pdf_file_path):
+            with open(pdf_file_path, "rb") as f:
+                pdf_bytes = f.read()
+            st.download_button(
+                label="📥 Download Architecture PDF",
+                data=pdf_bytes,
+                file_name="Fixora_Architecture_and_Pipeline.pdf",
+                mime="application/pdf",
+                use_container_width=True,
+                type="secondary",
+            )
+
         # User Profile Footer
         initials = "".join([p[0] for p in st.session_state.username.split()[:2]]).upper() if st.session_state.username else "MA"
         st.markdown(f'''
