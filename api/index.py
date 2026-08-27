@@ -10,11 +10,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 
-try:
-    from mangum import Mangum
-except ImportError:
-    Mangum = None
-
 app = FastAPI(title="Fixora Industrial AI Assistant", version="1.0.0")
 
 app.add_middleware(
@@ -212,11 +207,11 @@ async def query_endpoint(req: QueryRequest):
             }
         )
 
-@app.get("/api/health")
-@app.get("/health/ready")
-@app.get("/health/live")
-async def health_check():
-    return {"status": "ok", "chunks_loaded": len(CHUNKS_DATA), "engine": "Fixora Serverless"}
+@app.get("/api")
+@app.get("/api/")
+@app.get("/")
+async def root():
+    return {"status": "ok", "message": "Fixora Industrial AI Assistant API is live", "chunks_loaded": len(CHUNKS_DATA)}
 
-# Vercel Serverless Handler Bridge
-handler = Mangum(app) if Mangum else app
+# Export ASGI FastAPI app directly for Vercel Python Runtime
+app = app
