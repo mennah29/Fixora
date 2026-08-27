@@ -1,4 +1,4 @@
-from http.server import BaseHTTPRequestHandler
+from flask import Flask, request, jsonify
 import json
 import os
 import re
@@ -6,10 +6,19 @@ from pathlib import Path
 import urllib.request
 import urllib.error
 
+app = Flask(__name__)
+
+# Add CORS headers to all responses
+@app.after_request
+def add_cors_headers(response):
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization, X-Requested-With'
+    response.headers['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
+    return response
+
 # In-memory cached chunks
 _CACHED_CHUNKS = None
 
-# Embedded Golden Manual Knowledge for zero-cold-start speed and reliability
 CORE_MANUAL_KNOWLEDGE = {
     "37": {
         "fault_meaning": "The manual lists Error Code 37 as EXP_FLOW_MTR_RANGE_ERR (Expiratory Flow Meter Range Error).",
@@ -133,7 +142,7 @@ def retrieve_chunks(query: str, device_name: str = None, top_k: int = 5) -> list
 def process_query(query: str, device_name: str = None, top_k: int = 5) -> dict:
     q_upper = query.upper()
     
-    # 1. Check embedded core knowledge first for instant answer
+    # 1. Embedded Golden Knowledge Matches
     if "37" in q_upper or "E37" in q_upper or "FLOW METER" in q_upper:
         k = CORE_MANUAL_KNOWLEDGE["37"]
         return {
@@ -280,41 +289,24 @@ Return ONLY valid raw JSON matching this schema:
         "source_citation": {"manual": "Manual", "page": "N/A"}
     }
 
-class handler(BaseHTTPRequestHandler):
-    def _send_json(self, data, status=200):
-        self.send_response(status)
-        self.send_header("Content-Type", "application/json; charset=utf-8")
-        self.send_header("Access-Control-Allow-Origin", "*")
-        self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
-        self.send_header("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With")
-        self.end_headers()
-        self.wfile.write(json.dumps(data).encode("utf-8"))
+@app.route('/api/query', methods=['POST', 'OPTIONS'])
+@app.route('/api', methods=['POST', 'OPTIONS'])
+@app.route('/v1/query', methods=['POST', 'OPTIONS'])
+@app.route('/query', methods=['POST', 'OPTIONS'])
+def query():
+    if request.method == 'OPTIONS':
+        return jsonify({"status": "ok"})
+    data = request.get_json(silent=True) or {}
+    q = data.get('query', '')
+    dev = data.get('device_name', None)
+    k = int(data.get('top_k', 5))
+    result = process_query(q, dev, k)
+    return jsonify(result)
 
-    def do_OPTIONS(self):
-        self._send_json({"status": "ok"}, 200)
-
-    def do_GET(self):
-        self._send_json({"status": "ok", "message": "Fixora API is active", "version": "1.0.0"}, 200)
-
-    def do_POST(self):
-        try:
-            length = int(self.headers.get("Content-Length", 0))
-            raw = self.rfile.read(length).decode("utf-8") if length > 0 else "{}"
-            payload = json.loads(raw)
-            q = payload.get("query", "")
-            dev = payload.get("device_name", None)
-            k = int(payload.get("top_k", 5))
-            
-            result = process_query(q, dev, k)
-            self._send_json(result, 200)
-        except Exception as e:
-            fallback = {
-                "status": "FOUND_IN_MANUAL",
-                "fault_meaning": "Diagnostic service processed your request.",
-                "checklist": ["Inspect equipment according to standard service manual protocols."],
-                "source_citation": {"manual": "Service Manual", "page": "1"},
-                "has_high_priority_safety": False,
-                "answer": f"Request processed: {str(e)}"
-            }
-            self._send_json(fallback, 200)
+@app.route('/api', methods=['GET'])
+@app.route('/api/health', methods=['GET'])
+@app.route('/health/ready', methods=['GET'])
+@app.route('/health/live', methods=['GET'])
+def health():
+    return jsonify({"status": "ok", "message": "Fixora Flask Serverless API is live", "version": "1.0.0"})
 

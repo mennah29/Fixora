@@ -4,5 +4,15 @@
       "includeFiles": "data/all_device_fault_chunks.json",
       "excludeFiles": "{Maintience/**,data/*.pdf,*.ipynb,tests/**,scripts/**}"
     }
-  }
+  },
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/index.py"
+    },
+    {
+      "source": "/api",
+      "destination": "/api/index.py"
+    }
+  ]
 }
