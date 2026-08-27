@@ -1,0 +1,381 @@
+{
+  "timestamp": "2026-08-27T08:17:39.525649",
+  "total_tests": 8,
+  "total_checks": 77,
+  "total_passed": 71,
+  "overall_score_pct": 92.2,
+  "tests": [
+    {
+      "query": "error 37",
+      "device": "Siemens Servo 900 Ventilator",
+      "description": "Error 37 should retrieve Exp Flow Mtr Range Err from ventilator service manual p.53",
+      "checks": {
+        "keyword_37": {
+          "passed": false,
+          "detail": "Keyword '37' NOT found in answer"
+        },
+        "keyword_flow": {
+          "passed": true,
+          "detail": "Keyword 'flow' found in answer"
+        },
+        "source_manual": {
+          "passed": true,
+          "detail": "Expected manual containing 'Service Manual', got 'Copy of Service Manual.pdf'"
+        },
+        "source_page": {
+          "passed": true,
+          "detail": "Expected page 53, got 53"
+        },
+        "no_think_tags": {
+          "passed": true,
+          "detail": "Answer should not contain raw <think> tags"
+        },
+        "no_raw_json_wrapper": {
+          "passed": true,
+          "detail": "Answer should not be raw JSON starting with {"
+        },
+        "has_answer": {
+          "passed": true,
+          "detail": "Answer should not be empty"
+        },
+        "checklist_is_list": {
+          "passed": true,
+          "detail": "Checklist should be a list"
+        },
+        "sources_is_list": {
+          "passed": true,
+          "detail": "Sources should be a list"
+        },
+        "speech_text_if_found": {
+          "passed": true,
+          "detail": "speech_text should exist when status is FOUND_IN_MANUAL"
+        },
+        "safety_body_if_flagged": {
+          "passed": true,
+          "detail": "safety_body should exist when has_high_priority_safety is True"
+        }
+      },
+      "answer_preview": "**Fault Overview:** Expiratory flow meter range error.\n\n### 🔧 Step-by-Step Checklist\n- No specific repair procedure is listed in the manual for this e"
+    },
+    {
+      "query": "alarm 29 battery",
+      "device": "Siemens Servo 900 Ventilator",
+      "description": "Alarm 29 should retrieve low lithium battery info from ventilator manual",
+      "checks": {
+        "status_match": {
+          "passed": false,
+          "detail": "Expected FOUND_IN_MANUAL, got FLAGGED"
+        },
+        "keyword_battery": {
+          "passed": true,
+          "detail": "Keyword 'battery' found in answer"
+        },
+        "keyword_29": {
+          "passed": false,
+          "detail": "Keyword '29' NOT found in answer"
+        },
+        "source_manual": {
+          "passed": true,
+          "detail": "Expected manual containing 'Service Manual', got 'Copy of Service Manual.pdf'"
+        },
+        "source_page": {
+          "passed": true,
+          "detail": "Expected page 53, got 53"
+        },
+        "no_think_tags": {
+          "passed": true,
+          "detail": "Answer should not contain raw <think> tags"
+        },
+        "no_raw_json_wrapper": {
+          "passed": true,
+          "detail": "Answer should not be raw JSON starting with {"
+        },
+        "has_answer": {
+          "passed": true,
+          "detail": "Answer should not be empty"
+        },
+        "checklist_is_list": {
+          "passed": true,
+          "detail": "Checklist should be a list"
+        },
+        "sources_is_list": {
+          "passed": true,
+          "detail": "Sources should be a list"
+        },
+        "speech_text_if_found": {
+          "passed": true,
+          "detail": "speech_text should exist when status is FOUND_IN_MANUAL"
+        },
+        "safety_body_if_flagged": {
+          "passed": true,
+          "detail": "safety_body should exist when has_high_priority_safety is True"
+        }
+      },
+      "answer_preview": "**Fault Overview:** Lithium battery low\n"
+    },
+    {
+      "query": "power failure troubleshooting",
+      "device": "Siemens Mobilett Plus HP",
+      "description": "Power failure on Mobilett should flag safety (high voltage device)",
+      "checks": {
+        "safety_flag": {
+          "passed": true,
+          "detail": "Expected safety=True, got True"
+        },
+        "keyword_power": {
+          "passed": true,
+          "detail": "Keyword 'power' found in answer"
+        },
+        "source_manual": {
+          "passed": true,
+          "detail": "Expected manual containing 'Siemens', got 'Copy of Siemens Ag 2017.pdf'"
+        },
+        "no_think_tags": {
+          "passed": true,
+          "detail": "Answer should not contain raw <think> tags"
+        },
+        "no_raw_json_wrapper": {
+          "passed": true,
+          "detail": "Answer should not be raw JSON starting with {"
+        },
+        "has_answer": {
+          "passed": true,
+          "detail": "Answer should not be empty"
+        },
+        "checklist_is_list": {
+          "passed": true,
+          "detail": "Checklist should be a list"
+        },
+        "sources_is_list": {
+          "passed": true,
+          "detail": "Sources should be a list"
+        },
+        "speech_text_if_found": {
+          "passed": true,
+          "detail": "speech_text should exist when status is FOUND_IN_MANUAL"
+        },
+        "safety_body_if_flagged": {
+          "passed": true,
+          "detail": "safety_body should exist when has_high_priority_safety is True"
+        }
+      },
+      "answer_preview": "### ⚠️ HIGH PRIORITY SAFETY INSTRUCTIONS DETECTED\n**DANGER: Loose power connections can result in fire, device defects, or malfunctions. Ensure all po"
+    },
+    {
+      "query": "high voltage panel",
+      "device": "Siemens Mobilett Plus HP",
+      "description": "High voltage query should trigger safety flag",
+      "checks": {
+        "safety_flag": {
+          "passed": false,
+          "detail": "Expected safety=True, got False"
+        },
+        "keyword_voltage": {
+          "passed": true,
+          "detail": "Keyword 'voltage' found in answer"
+        },
+        "source_manual": {
+          "passed": true,
+          "detail": "Expected manual containing 'Siemens', got 'Copy of Siemens Ag 2017.pdf'"
+        },
+        "no_think_tags": {
+          "passed": false,
+          "detail": "Answer should not contain raw <think> tags"
+        },
+        "no_raw_json_wrapper": {
+          "passed": true,
+          "detail": "Answer should not be raw JSON starting with {"
+        },
+        "has_answer": {
+          "passed": true,
+          "detail": "Answer should not be empty"
+        },
+        "checklist_is_list": {
+          "passed": true,
+          "detail": "Checklist should be a list"
+        },
+        "sources_is_list": {
+          "passed": true,
+          "detail": "Sources should be a list"
+        },
+        "speech_text_if_found": {
+          "passed": true,
+          "detail": "speech_text should exist when status is FOUND_IN_MANUAL"
+        },
+        "safety_body_if_flagged": {
+          "passed": true,
+          "detail": "safety_body should exist when has_high_priority_safety is True"
+        }
+      },
+      "answer_preview": "<think>\nHere's a thinking process:\n\n1.  **Analyze User Input:**\n   - **Role:** Fixora, senior maintenance engineer on a live hands-free phone call.\n  "
+    },
+    {
+      "query": "cooling system specifications",
+      "device": null,
+      "description": "Cooling system query should return relevant specs",
+      "checks": {
+        "status_match": {
+          "passed": false,
+          "detail": "Expected FOUND_IN_MANUAL, got FLAGGED"
+        },
+        "keyword_cool": {
+          "passed": true,
+          "detail": "Keyword 'cool' found in answer"
+        },
+        "no_think_tags": {
+          "passed": true,
+          "detail": "Answer should not contain raw <think> tags"
+        },
+        "no_raw_json_wrapper": {
+          "passed": true,
+          "detail": "Answer should not be raw JSON starting with {"
+        },
+        "has_answer": {
+          "passed": true,
+          "detail": "Answer should not be empty"
+        },
+        "checklist_is_list": {
+          "passed": true,
+          "detail": "Checklist should be a list"
+        },
+        "sources_is_list": {
+          "passed": true,
+          "detail": "Sources should be a list"
+        },
+        "speech_text_if_found": {
+          "passed": true,
+          "detail": "speech_text should exist when status is FOUND_IN_MANUAL"
+        },
+        "safety_body_if_flagged": {
+          "passed": true,
+          "detail": "safety_body should exist when has_high_priority_safety is True"
+        }
+      },
+      "answer_preview": "### ⚠️ HIGH PRIORITY SAFETY INSTRUCTIONS DETECTED\n**Please ensure that the cooling system is functioning correctly to maintain safe operation.**\n"
+    },
+    {
+      "query": "battery replacement procedure",
+      "device": "Siemens Servo 900 Ventilator",
+      "description": "Battery replacement should return procedure steps",
+      "checks": {
+        "keyword_battery": {
+          "passed": true,
+          "detail": "Keyword 'battery' found in answer"
+        },
+        "no_think_tags": {
+          "passed": true,
+          "detail": "Answer should not contain raw <think> tags"
+        },
+        "no_raw_json_wrapper": {
+          "passed": true,
+          "detail": "Answer should not be raw JSON starting with {"
+        },
+        "has_answer": {
+          "passed": true,
+          "detail": "Answer should not be empty"
+        },
+        "checklist_is_list": {
+          "passed": true,
+          "detail": "Checklist should be a list"
+        },
+        "sources_is_list": {
+          "passed": true,
+          "detail": "Sources should be a list"
+        },
+        "speech_text_if_found": {
+          "passed": true,
+          "detail": "speech_text should exist when status is FOUND_IN_MANUAL"
+        },
+        "safety_body_if_flagged": {
+          "passed": true,
+          "detail": "safety_body should exist when has_high_priority_safety is True"
+        }
+      },
+      "answer_preview": "### ⚠️ HIGH PRIORITY SAFETY INSTRUCTIONS DETECTED\n**The battery is a chemical hazard. Use only original GE‑supplied batteries, avoid shorting the term"
+    },
+    {
+      "query": "pressure alarm calibration",
+      "device": "Compressor X200",
+      "description": "Pressure alarm should return calibration info",
+      "checks": {
+        "keyword_pressure": {
+          "passed": true,
+          "detail": "Keyword 'pressure' found in answer"
+        },
+        "no_think_tags": {
+          "passed": true,
+          "detail": "Answer should not contain raw <think> tags"
+        },
+        "no_raw_json_wrapper": {
+          "passed": true,
+          "detail": "Answer should not be raw JSON starting with {"
+        },
+        "has_answer": {
+          "passed": true,
+          "detail": "Answer should not be empty"
+        },
+        "checklist_is_list": {
+          "passed": true,
+          "detail": "Checklist should be a list"
+        },
+        "sources_is_list": {
+          "passed": true,
+          "detail": "Sources should be a list"
+        },
+        "speech_text_if_found": {
+          "passed": true,
+          "detail": "speech_text should exist when status is FOUND_IN_MANUAL"
+        },
+        "safety_body_if_flagged": {
+          "passed": true,
+          "detail": "safety_body should exist when has_high_priority_safety is True"
+        }
+      },
+      "answer_preview": "WEB FALLBACK — NOT FOUND IN MANUAL\nNo matching error code or troubleshooting procedure was found in the indexed manuals for: \"pressure alarm calibrati"
+    },
+    {
+      "query": "completely unrelated quantum physics question about black holes",
+      "device": null,
+      "description": "Irrelevant query should return NOT_FOUND",
+      "checks": {
+        "status_match": {
+          "passed": true,
+          "detail": "Expected NOT_FOUND_IN_MANUAL, got NOT_FOUND_IN_MANUAL"
+        },
+        "safety_flag": {
+          "passed": true,
+          "detail": "Expected safety=False, got False"
+        },
+        "no_think_tags": {
+          "passed": true,
+          "detail": "Answer should not contain raw <think> tags"
+        },
+        "no_raw_json_wrapper": {
+          "passed": true,
+          "detail": "Answer should not be raw JSON starting with {"
+        },
+        "has_answer": {
+          "passed": true,
+          "detail": "Answer should not be empty"
+        },
+        "checklist_is_list": {
+          "passed": true,
+          "detail": "Checklist should be a list"
+        },
+        "sources_is_list": {
+          "passed": true,
+          "detail": "Sources should be a list"
+        },
+        "speech_text_if_found": {
+          "passed": true,
+          "detail": "speech_text should exist when status is FOUND_IN_MANUAL"
+        },
+        "safety_body_if_flagged": {
+          "passed": true,
+          "detail": "safety_body should exist when has_high_priority_safety is True"
+        }
+      },
+      "answer_preview": "WEB FALLBACK — NOT FOUND IN MANUAL\nNo matching error code or troubleshooting procedure was found in the indexed manuals for: \"completely unrelated qua"
+    }
+  ]
+}

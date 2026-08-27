@@ -1,0 +1,566 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+
+<title>Frank's Hospital Workshop</title>
+  
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta name="description" content="Technical help for biomedical technicians specially in developing countries. A collection of service manuals, tutorials and descriptions 
+of medical equipment." /> 
+<meta name="keywords" content="hospital workshop, biomedical technician, biomedical engineer, BMET, medical equipment repair, repair of hospital equipment, 
+hospital repair workshop, development aid, electronic equipment repair" />
+<meta name="Robots" content="Index,Follow" /> 
+<meta name="Revisit-after" content="30 days" /> 
+<link rel="shortcut icon" href="../favicon.ico" />
+<link rel="stylesheet" type="text/css" href="./main.css" />
+</head>
+
+<body id="home">
+
+<!-- Begin Wrapper -->
+<div id="wrapper">
+<a name="start"></a>
+
+<!-- Begin Header -->
+<div id="header">
+ <ul>
+  <li id="navi_home"><a href="index.html">Home</a></li>
+  <li id="navi_equipment"><a href="equipment.html">Equipment</a></li>
+  <li id="navi_teaching_learning"><a href="teaching_learning.html">Teaching &amp; Learning</a></li>
+  <li id="navi_electronics"><a href="electronics.html">Electronics</a></li>
+  <li id="navi_organisation"><a href="organisation.html">Organisation</a></li>
+  <li id="navi_contact"><a href="contact.html">Contact</a></li>
+  <li id="navi_book"><a href="book.html">The Book</a></li>
+ </ul>
+</div>
+<!-- End Header -->
+
+<!-- Begin Menu -->
+<div id="menue">
+ <ul>
+  <li id="menue_home"><a href="index.html">News</a></li>
+  <li id="menue_about_this_website"><a href="home/about_this_website.html">About this website</a></li>
+  <li id="menue_imprint"><a href="home/imprint.html">Imprint</a></li>
+ </ul>
+</div>
+<!-- End Menu -->
+
+
+<!-- Begin Content -->
+<div id="content2">
+
+
+<!-- Book Advert -->
+<table style="width: 620px; margin-left: auto; margin-right: auto;" border="0" cellpadding="0" cellspacing="0">
+ <tbody> 
+  <tr> 
+   <td style="text-align: left; padding:10px; background-color: #fff4c6;">
+    <img src="./images/The_book.jpg" alt="image" width="100" style="float:left; margin-left: 0px; margin-right: 25px; margin-top: 0px; margin-bottom: 0px;">
+	<span style="color: #0068d3; font-weight: bold; font-size:14px">Do you want to learn how to repair medical equipment?</span><br />
+    Then this book would be something for you.<br /><br />
+    <span style="color: #0068d3; font-size: 22px;">Introduction to Medical Equipment Repair</span><br />
+    <br />
+    On 600 pages it explains the basics of medical equipment repair.<br />
+    Click <a target="_blank" href="../book.html">here</a> for more information.
+   </td> 
+  </tr> 
+ </tbody> 
+</table>
+<br />
+<br />
+
+
+<!-- ====== images: 200px (x150px) ======= -->
+
+
+<table style="text-align: left; width: 630px;" border="0" cellpadding="2" cellspacing="10"> 
+ <tbody> 
+  <tr> 
+   <td style="vertical-align: top;"><img alt="" src="home/images/0-microscopes.jpg" /><br /> 
+    </td> 
+    <td style="vertical-align: top;"> 
+      <h5>Repair of Microscopes</h5>
+      The laboratory microscope is one of the most important instruments in a hospital laboratory. It can be found in even the smallest hospital. 
+      The microscope is used to examine body fluids and tissues. These examinations are used to diagnose diseases, detect infections and allergies, 
+      and identify parasites and bacteria. &nbsp; <a href="equipment/microscopes_equipment.html">more &gt;</a><br />
+   </td> 
+  </tr> 
+ </tbody> 
+</table>
+<br />
+
+
+<table style="text-align: left; width: 630px;" border="0" cellpadding="2" cellspacing="10"> 
+ <tbody> 
+  <tr> 
+   <td style="vertical-align: top;"><img alt="" src="home/images/0-BP_monitor.jpg" /><br /> 
+    </td> 
+    <td style="vertical-align: top;">
+	  <span style="font-family: verdana; font-weight: normal; font-size: 18px; color: #0068d3;">Repair of Blood Pressure</span><br />
+      <span style="font-family: verdana; font-weight: normal; font-size: 18px; color: #0068d3; line-height: 1.7em;">Measurement Devices</span><br />
+      Blood pressure measurement is a routine examination that determines the pressure in the arteries. The measurement provides information about the 
+      pumping capacity of the heart and the condition of the blood vessel walls. Blood pressure measurement is a harmless and ... &nbsp; 
+      <a href="equipment/sphygmomanometer_equipment.html">more &gt;</a><br />
+   </td> 
+  </tr> 
+ </tbody> 
+</table>
+<br />
+
+
+<table style="text-align: left; width: 630px;" border="0" cellpadding="2" cellspacing="10"> 
+ <tbody> 
+  <tr> 
+   <td style="vertical-align: top;"><img alt="" src="home/images/0-suction_pump.jpg" /><br /> 
+    </td> 
+    <td style="vertical-align: top;"> 
+      <h5>Repair of Suction Pumps</h5>
+      A medical suction pump is a motor-driven device used to remove mucus, blood and other body fluids from a patient. <br />
+      Suction pumps can be found in operating theatres, where body fluids, tissues and gases are removed during surgery. In maternity wards, suction pumps are used to 
+      clear blockages caused by blood or secretions in ... &nbsp; <a href="equipment/suction_pumps_equipment.html">more &gt;</a><br />
+   </td> 
+  </tr> 
+ </tbody> 
+</table>
+<br />
+
+	
+<!-- ====== images: 200px (x150px) ======= -->
+
+<table style="text-align: left; width: 630px;" border="0" cellpadding="2" cellspacing="10"> 
+ <tbody> 
+  <tr> 
+   <td style="vertical-align: top;"><img alt="" src="home/images/0-learning.jpg" /><br /> 
+    </td> 
+    <td style="vertical-align: top;"> 
+      <h5>Chris' lecture materials</h5>
+      In this corner we present lecture materials that were created for a Diploma Course for BioMedical Engineering Technologists (BMETs) in Zambia 
+      in 2015 and 2016 at NORTEC, Northern Technical College in Ndola, Zambia. The modules mentioned are part of a full curriculum program. 
+      &nbsp; <a href="teaching_learning.html">more &gt;</a><br />
+   </td> 
+  </tr> 
+ </tbody> 
+</table>
+<br />
+
+<!-- ========================================================================================================= -->
+
+<table style="text-align: left; width: 630px;" border="0" cellpadding="2" cellspacing="10"> 
+ <tbody> 
+  <tr> 
+   <td style="vertical-align: top;"><img alt="" src="equipment/documents/defibrillators/equipment/images/Defibrillator-title.jpg" /><br /> 
+   </td> 
+   <td style="vertical-align: top;">
+      <h5>Repair of Defibrillators</h5>
+      The defibrillator is a portable device which runs on mains voltage and on internal battery. The unit contains an adjustable high voltage source, 
+      an ECG, a printer for the ECG and the patient electrodes (paddles). 
+      &nbsp; <a href="equipment/defibrillators_equipment.html">more &gt;</a><br />
+   </td> 
+  </tr> 
+ </tbody> 
+</table>
+<br />
+
+<!-- ========================================================================================================= -->
+
+<table style="text-align: left; width: 630px;" border="0" cellpadding="2" cellspacing="10"> 
+ <tbody> 
+  <tr> 
+   <td style="vertical-align: top;"><img alt="" src="electronics/training_course/images_safety_testing/0-safety.jpg" /><br /> 
+   </td> 
+   <td style="vertical-align: top;">
+     <h5>Electrical Safety Testing</h5>
+     The introduced test procedures are particularly suitable for hospital workshops in low-income countries. The tests are easy to carry out, 
+     provide reliable results and no expensive safety analyser is needed. 
+     &nbsp; <a href="electronics/training_course_electrical_safety_testing.html">more &gt;</a><br />
+   </td> 
+  </tr> 
+ </tbody> 
+</table>
+<br />
+
+<!-- ========================================================================================================= -->
+
+<table style="text-align: left; width: 630px;" border="0" cellpadding="2" cellspacing="10"> 
+ <tbody> 
+  <tr> 
+   <td style="vertical-align: top;"><img alt="" src="electronics/training_course/images_electrical/0-electrical_supply.jpg" /><br /> 
+   </td> 
+   <td style="vertical-align: top;">
+     <h5>Earthing System & RCD</h5>
+     ... For safety reasons the electrical installation in buildings has to meet certain standards. One standard specifies the earthing system. 
+     One of the most common earthing systems in the world, including the developing world, is called TN-C-S.
+     &nbsp; <a href="electronics/training_course_earthing_system_and_RCD.html">more &gt;</a><br />
+   </td> 
+  </tr> 
+ </tbody> 
+</table>
+<br />
+
+<!-- ========================================================================================================= -->
+
+<table style="text-align: left; width: 630px;" border="0" cellpadding="2" cellspacing="10"> 
+ <tbody> 
+  <tr> 
+   <td style="vertical-align: top;"><img alt="" src="electronics/training_course/images_mains_plug/0-mains_plug.jpg" /><br /> 
+   </td> 
+   <td style="vertical-align: top;">
+      <h5>How to Connect a Mains Plug</h5>
+      A tutorial on how to connect a mains plug (UK type) correctly.
+      A small matter - big impact.
+      &nbsp; <a href="electronics/training_course_how_to_connect_a_mains_plug.html">more &gt;</a><br />
+   </td> 
+  </tr> 
+ </tbody> 
+</table>
+<br />
+
+<!-- ========================================================================================================= -->
+
+<table style="text-align: left; width: 630px;" border="0" cellpadding="2" cellspacing="10"> 
+ <tbody> 
+  <tr> 
+   <td style="vertical-align: top;"><img alt="" src="electronics/projects/microscope_cabinet/0-microscope_cabinet.jpg" /><br /> 
+   </td> 
+   <td style="vertical-align: top;">
+      <span style="font-family: verdana; font-weight: normal; font-size: 18px; color: #0068d3;">Microscope Cabinet for the Prevention of</span><br />
+      <span style="font-family: verdana; font-weight: normal; font-size: 18px; color: #0068d3; line-height: 1.7em;">Fungus Growth - A DIY Project</span><br />
+      In hot and humid climates laboratory microscopes often show an unclear, dull or milky image. If this happens, even when the 
+      eyepieces and objectives are regularly cleaned, it is very likely that the microscope is affected by fungus. <br />
+      Fungus grows on all glass surfaces in warm climates where the humidity is permanently above 60%.
+      &nbsp; <a href="electronics/diy-microscope_cabinet.html">more &gt;</a><br />
+   </td> 
+  </tr> 
+ </tbody> 
+</table>
+<br />
+
+<!-- ========================================================================================================= -->
+
+<table style="text-align: left; width: 630px;" border="0" cellpadding="2" cellspacing="10"> 
+ <tbody> 
+  <tr> 
+   <td style="vertical-align: top;"><img alt="" src="equipment/documents/autoclaves/equipment/images/0-autoclave.jpg" /> 
+   </td> 
+   <td style="vertical-align: top;">
+      <h5>Repair of Autoclaves</h5>
+      All surgical instruments that are in touch with open wounds or enter the body of a patient must be sterile. Therefore, all surgical instruments and 
+      materials have to be sterilised before surgery. The machine which does the sterilisation is called autoclave or steriliser.
+      &nbsp; <a href="equipment/autoclaves_equipment.html">more &gt;</a><br />
+   </td> 
+  </tr> 
+ </tbody> 
+</table>
+<br />
+
+<!-- ========================================================================================================= -->
+	
+<table style="text-align: left; width: 630px;" border="0" cellpadding="2" cellspacing="10"> 
+ <tbody> 
+  <tr> 
+   <td style="vertical-align: top;"><img alt="" src="equipment/documents/centrifuges/equipment/images/0-centrifuge.jpg" /><br /> 
+   </td> 
+   <td style="vertical-align: top;">
+      <h5>Repair of Laboratory Centrifuges</h5>
+      A centrifuge is a motor-driven equipment which is used in hospital laboratories. A centrifuge prepares body liquids from a patient for further 
+      examinations. <br />
+      For diagnosing diseases, the examination of the components of body liquids like blood and urine are important.
+      &nbsp; <a href="equipment/centrifuges_equipment.html">more &gt;</a><br />
+   </td> 
+  </tr> 
+ </tbody> 
+</table>
+<br />
+
+<!-- ========================================================================================================= -->
+	
+<table style="text-align: left; width: 630px;" border="0" cellpadding="2" cellspacing="10"> 
+ <tbody> 
+  <tr> 
+   <td style="vertical-align: top;"><img alt="" src="equipment/documents/oxygen_concentrators/equipment/images/0-concentrator.jpg" /><br /> 
+   </td> 
+   <td style="vertical-align: top;">
+      <h5>Repair of Oxygen Concentrators</h5>
+      The oxygen concentrator produces oxygen by filtering the oxygen out of the ambient air.
+      A compressor aspirates air and presses the air at high pressure through molecular sieves. These sieves are designed to let oxygen pass and 
+      to keep back the nitrogen.
+      &nbsp; <a href="equipment/oxygen_concentrators_equipment.html">more &gt;</a><br />
+   </td> 
+  </tr> 
+ </tbody> 
+</table>
+<br />
+
+<!-- ========================================================================================================= -->
+	
+<table style="text-align: left; width: 630px;" border="0" cellpadding="2" cellspacing="10"> 
+ <tbody> 
+  <tr> 
+   <td style="vertical-align: top;"><img alt="" src="equipment/documents/infant_incubators/equipment/images/0_infant_incubator.jpg" /><br /> 
+   </td> 
+   <td style="vertical-align: top;">  
+      <h5>Repair of Infant Incubators</h5>
+      Infant incubators maintain a healthy environment for newborn babies. They are used for premature babies which are still small and weak 
+      as well as for some sick full-term babies. Incubators are used in the primary care department of a hospital or in the neonatal intensive care 
+      unit, NICU. 
+      &nbsp; <a href="equipment/infant_incubators_equipment.html">more &gt;</a><br />
+   </td> 
+  </tr> 
+ </tbody> 
+</table> 
+<br />
+
+<!-- ========================================================================================================= -->
+	
+<table style="text-align: left; width: 630px;" border="0" cellpadding="2" cellspacing="10"> 
+ <tbody> 
+  <tr> 
+   <td style="vertical-align: top;"><img alt="" src="equipment/documents/medical_gas_supply/equipment/images/0-medical_gases.jpg" /><br /> 
+   </td> 
+   <td style="vertical-align: top;">
+      <h5>Medical Gas Supply</h5>
+      Beside a functioning supply of water and electricity also the gas supply is important for a hospital. Medical 
+      gases are used in the operating room for anaesthesia and in the wards (oxygen) as an additive to the 
+      breathing air.
+      &nbsp; <a href="equipment/medical_gas_supply_equipment.html">more &gt;</a><br />
+   </td> 
+  </tr> 
+ </tbody> 
+</table> 
+<br />
+
+<!-- ========================================================================================================= -->
+	
+<table style="text-align: left; width: 630px;" border="0" cellpadding="2" cellspacing="10"> 
+ <tbody> 
+  <tr> 
+   <td style="vertical-align: top;"><img alt="" src="electronics/projects/cardiac_output_computer_simulator/COS-start.jpg" /><br /> 
+   </td> 
+   <td style="vertical-align: top;">
+    <h5>Cardiac Output Computer Simulator (DIY)</h5>
+     In clinical practice cardiac output can be estimated with the thermodilution method. A catheter is inserted
+     into the pulmonary artery. The catheter has a thermistor in the tip measuring the temperature of the blood.
+     &nbsp; &nbsp; <a href="electronics/diy-cardiac_output_simulator.html">more &gt;</a><br />
+   </td> 
+  </tr> 
+ </tbody> 
+</table> 
+<br />
+
+<!-- ========================================================================================================= -->
+
+<table style="text-align: left; width: 630px;" border="0" cellpadding="2" cellspacing="10"> 
+ <tbody> 
+  <tr> 
+   <td style="vertical-align: top;"><img alt="" src="equipment/documents/weighing_scales/equipment/images/balance-home.jpg" /><br /> 
+   </td> 
+   <td style="vertical-align: top;">
+    <h5>Repair of Laboratory Balances</h5>
+      Laboratory balances are sophisticated and sensitive electromechanical devices which need special care and knowledge in the 
+      usage, maintenance and repair.
+      &nbsp; <a href="equipment/weighing_scales_equipment.html">more &gt;</a><br />
+   </td> 
+  </tr> 
+ </tbody> 
+</table> 
+<br />
+
+<!-- ========================================================================================================= -->
+
+<table style="text-align: left; width: 630px;" border="0" cellpadding="2" cellspacing="10"> 
+ <tbody> 
+  <tr> 
+   <td style="vertical-align: top;"><img alt="" src="electronics/projects/voltage_reference/voltage_reference.jpg" /><br /> 
+   </td> 
+   <td style="vertical-align: top;">  
+      <h5>Precision Voltage Reference - A DIY Project</h5>
+      You do calibration for electronic equipment? What about your own measurement equipment? When did you calibrate your 
+      multimeter the last time? Read how simple it is to build a precision voltage reference for multimeter calibration.
+ 	  &nbsp; <a href="electronics/diy-voltage_reference.html">more &gt;</a><br />
+   </td> 
+  </tr> 
+ </tbody> 
+</table> 
+<br />
+
+<!-- ========================================================================================================= -->
+
+<table style="text-align: left; width: 630px;" border="0" cellpadding="2" cellspacing="10"> 
+ <tbody> 
+  <tr> 
+   <td style="vertical-align: top;"><img alt="" src="home/images/0-power_supplies.jpg" /><br /> 
+   </td> 
+   <td style="vertical-align: top;">
+    <h5>Electronic Course (12) - Power Supplies</h5>
+      Many failures of medical (and electronic) equipment due to power supply defects. Therefore a lot of devices can 
+      be repaired just with the knowledge of the functioning of power supplies.
+      &nbsp; <a href="electronics/training_course_power_supply.html">more &gt;</a><br />
+   </td> 
+  </tr> 
+ </tbody> 
+</table> 
+<br />
+
+<!-- ========================================================================================================= -->
+
+<table style="text-align: left; width: 630px;" border="0" cellpadding="2" cellspacing="10"> 
+ <tbody> 
+  <tr> 
+   <td style="vertical-align: top;"><img alt="" src="home/images/books.jpg" /><br /> 
+   </td> 
+   <td style="vertical-align: top;">
+    <h5>New Service Manuals<br /></h5>
+      900 new service manuals I could now add to the website. Thanks a lot to the colleagues from all over the world 
+      who sent me CDs, DVDs and even a hard drive full of manuals. The 2.000 user manuals I still have I will 
+      upload bit by bit in the next months - but first I need a break...<br />
+   </td> 
+  </tr> 
+ </tbody> 
+</table> 
+<br />
+
+<!-- ========================================================================================================= -->
+
+<table style="text-align: left; width: 630px;" border="0" cellpadding="2" cellspacing="10"> 
+ <tbody> 
+  <tr> 
+   <td style="vertical-align: top;"><img alt="" src="electronics/projects/keiths_x-ray_detector/keith0.jpg" /><br /> 
+   </td> 
+   <td style="vertical-align: top;">  
+      <h5>Simple X-Ray Detector - A DIY Project<br /></h5>
+      Recently I received an email from Keith Feay in which he introduced his simple made X-ray detector. 
+      The little unit is cheap and made from readily available materials. Here Keith's building instruction.
+      &nbsp; <a href="electronics/diy-keiths_x-ray_detector.html">more &gt;</a><br />
+   </td> 
+  </tr> 
+ </tbody> 
+</table> 
+<br />
+
+<!-- ========================================================================================================= -->
+
+<table style="text-align: left; width: 630px;" border="0" cellpadding="2" cellspacing="10"> 
+ <tbody> 
+  <tr> 
+   <td style="vertical-align: top;"><img alt="" src="home/images/0-phantom.jpg" /><br /> 
+   </td> 
+   <td style="vertical-align: top;">   
+      <h5>X-Ray Phantom in a CD Case - DIY Project<br /></h5>
+      Commercial X-Ray Phantoms are expensive and bulky. Usually they are made out two glass panes and so they are not durable in 
+      day-to-day operation. My solution for a DIY-X-Ray Phantom is made out of a CD jewel case. It is handy, available everywhere, 
+      and durable.
+      &nbsp; <a href="electronics/diy-x-ray_phantom.html">more &gt;</a><br />
+   </td> 
+  </tr> 
+ </tbody> 
+</table> 
+<br />
+
+<!-- ========================================================================================================= -->
+
+<table style="text-align: left; width: 630px;" border="0" cellpadding="2" cellspacing="10"> 
+ <tbody> 
+  <tr> 
+   <td style="vertical-align: top;"><img alt="" src="home/images/0-led-microscope.jpg" /><br /> 
+   </td> 
+     <td style="vertical-align: top;">
+     <h5>Microscope Conversion to LED - DIY Project</h5>
+      This instruction shows how to convert a standard microscope with light bulb to LED light. Only a cheap mobile phone charge can 
+      be used as the power supply because of the much lower power consumption of the LED light. The whole LED system costs less than 20 &#128;.
+      &nbsp; <a href="electronics/diy-led_microscope.html">more &gt;</a><br />
+   </td> 
+  </tr> 
+ </tbody> 
+</table>
+<br />
+
+<!-- ========================================================================================================= -->
+
+<table style="text-align: left; width: 630px;" border="0" cellpadding="2" cellspacing="10"> 
+ <tbody> 
+  <tr> 
+   <td style="vertical-align: top;"><img alt="" src="home/images/0-ecg_simulator.jpg" /><br /> 
+   </td> 
+   <td style="vertical-align: top;">
+      <h5>ECG Patient Simulator - A DIY Project</h5> 
+      One of the most important test equipment in the
+      biomedical workshop is the ECG Tester or Patient Simulator. The Patient Simulator is connected to the ECG monitor and delivers the typical ECG 
+      signal. Only with such a tester an ECG monitor can be repaired.
+      &nbsp; <a href="electronics/diy-ecg_simulator.html">more &gt;</a><br />
+   </td> 
+  </tr> 
+ </tbody> 
+</table>
+<br />
+
+<!-- ========================================================================================================= -->
+
+<table style="text-align: left; width: 630px;" border="0" cellpadding="2" cellspacing="10"> 
+ <tbody> 
+  <tr> 
+   <td style="vertical-align: top;"><img alt="" src="home/images/0-electronics.jpg" /><br /> 
+   </td> 
+   <td style="vertical-align: top;">
+      <h5>Electronics</h5>
+      The aim of this course is to provide the necessary electronic basics as well as all practical skills to repair and maintain electronic hospital
+	  equipment. It is not supposed to be an academic seminar for engineers but a small practical oriented training for hospital technicians in 
+	  developing countries who never received a proper vocational training.
+	  &nbsp; <a href="electronics/training_course.html">more &gt;</a><br />
+   </td> 
+  </tr> 
+ </tbody> 
+</table>
+<br />
+
+<!-- ========================================================================================================= -->
+
+<table style="text-align: left; width: 630px;" border="0" cellpadding="2" cellspacing="10"> 
+ <tbody> 
+  <tr> 
+   <td style="vertical-align: top;"><img alt="" src="home/images/0-emo.jpg" /><br />
+   </td>
+   <td style="vertical-align: top;">
+	  <h5>EMO - Service Instruction</h5>
+	  Before starting make sure that all tools are available. Besides a set of normal blade srew drivers you will need some special tools.
+      &nbsp; <a href="equipment/anaesthesia_service_manuals_emo.html">more &gt;</a><br />
+   </td> 
+  </tr> 
+ </tbody> 
+</table>
+<br />
+
+<!-- ========================================================================================================= -->
+
+<table style="text-align: left; width: 630px;" border="0" cellpadding="2" cellspacing="10"> 
+ <tbody> 
+  <tr> 
+   <td style="vertical-align: top;"><img alt="" src="home/images/0-omv.jpg" /><br />
+   </td>
+   <td style="vertical-align: top;">
+	  <h5>OMV - Service Instruction</h5>
+	  created by the participants of the CCBRT Anaesthesia 
+	  Maintenance Training Course 2008 
+	  &nbsp; <a href="equipment/anaesthesia_service_manuals_omv.html">more &gt;</a><br />
+   </td> 
+  </tr> 
+ </tbody> 
+</table> 
+
+<!-- ========================================================================================================= -->
+
+<br />
+<table style="text-align: left; width: 630px;" border="0" cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <td><a href="#start"><img style="border: 0px solid ; width: 13px; height: 13px;" alt="" src="images/page_up.gif" /></a></td>
+      <td style="text-align: right;"><a href="#start"><img style="border: 0px solid ; width: 13px; height: 13px;" alt="" src="images/page_up.gif" /></a></td>
+    </tr>
+  </tbody>
+</table>
+
+</div>
+<!-- End Content -->
+</div>
+<!-- End Wrapper -->
+</body>
+</html>

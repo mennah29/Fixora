@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fixora Voice</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: __THEME_BG__;
+            --panel-color: __THEME_PANEL__;
+            --text-color: __THEME_TEXT__;
+            --border-color: __THEME_BORDER__;
+            --brand-navy: #0b496b;
+            --brand-teal: #188a72;
+            --brand-ice: #cae7e8;
+            --brand-mint: #d3f0cb;
+            --brand-red: #D92D20;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body, html {
+            height: 100%;
+            width: 100%;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Safety Banner */
+        #safetyBanner {
+            display: none;
+            background-color: var(--brand-red);
+            color: white;
+            padding: 12px 16px;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-weight: 500;
+            font-size: 14px;
+            z-index: 100;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        #safetyBanner svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            z-index: 10;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .header-left svg {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            fill: var(--text-color);
+        }
+
+        .end-call-btn {
+            background-color: var(--brand-red);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 8px 16px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .end-call-btn:hover {
+            opacity: 0.9;
+        }
+
+        /* Main Container */
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* Orb Container */
+        .orb-container {
+            position: relative;
+            width: 240px;
+            height: 240px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Rings */
+        .ring {
+            position: absolute;
+            border-radius: 50%;
+            border: 2px solid var(--brand-teal);
+            opacity: 0;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.3s ease;
+        }
+
+        .ring-1 { width: 180px; height: 180px; }
+        .ring-2 { width: 200px; height: 200px; }
+        .ring-3 { width: 220px; height: 220px; }
+
+        /* The Orb */
+        .fixora-orb {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--brand-navy), var(--brand-teal), var(--brand-ice));
+            background-size: 400% 400%;
+            position: relative;
+            z-index: 5;
+            box-shadow: 0 10px 30px rgba(24, 138, 114, 0.3);
+            transition: all 0.5s ease;
+        }
+
+        /* Orb States */
+        .orb-idle {
+            animation: pulse-idle 4s infinite ease-in-out, gradient-shift 8s infinite linear;
+        }
+
+        .orb-listening {
+            animation: pulse-listening 2s infinite ease-in-out, gradient-shift 6s infinite linear;
+        }
+        
+        .orb-listening ~ .ring-1 { animation: ripple 2s infinite 0s ease-out; }
+        .orb-listening ~ .ring-2 { animation: ripple 2s infinite 0.3s ease-out; }
+
+        .orb-thinking {
+            animation: pulse-thinking 1.5s infinite ease-in-out, gradient-shift 2s infinite linear;
+        }
+
+        .orb-speaking {
+            animation: pulse-speaking 1.2s infinite alternate ease-in-out, gradient-shift-fast 3s infinite linear;
+            box-shadow: 0 0 40px rgba(202, 231, 232, 0.6), 0 0 20px rgba(24, 138, 114, 0.4);
+        }
+        
+        .orb-speaking ~ .ring-1 { animation: ripple-speaking 1.2s infinite alternate ease-in-out; opacity: 0.6; width: 180px; height: 180px;}
+        .orb-speaking ~ .ring-2 { animation: ripple-speaking 1.2s infinite alternate 0.1s ease-in-out; opacity: 0.4; width: 200px; height: 200px;}
+        .orb-speaking ~ .ring-3 { animation: ripple-speaking 1.2s infinite alternate 0.2s ease-in-out; opacity: 0.2; width: 220px; height: 220px;}
+
+        /* Animations */
+        @keyframes pulse-idle {
+            0% { transform: scale(0.97); }
+            50% { transform: scale(1.03); }
+            100% { transform: scale(0.97); }
+        }
+
+        @keyframes pulse-listening {
+            0% { transform: scale(0.98); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(0.98); }
+        }
+
+        @keyframes pulse-thinking {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.08); }
+            50% { transform: scale(0.95); }
+            75% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes pulse-speaking {
+            0% { transform: scale(1); border-radius: 50%; }
+            50% { transform: scale(1.15); border-radius: 45% 55% 45% 55%; }
+            100% { transform: scale(1.05); border-radius: 55% 45% 55% 45%; }
+        }
+
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes gradient-shift-fast {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes ripple {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; border-width: 2px; }
+            100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; border-width: 0px; }
+        }
+        
+        @keyframes ripple-speaking {
+            0% { transform: translate(-50%, -50%) scale(1); }
+            100% { transform: translate(-50%, -50%) scale(1.1); }
+        }
+
+        /* Status Indicator */
+        .status-indicator {
+            margin-top: 40px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: var(--brand-teal);
+            animation: blink 2s infinite;
+        }
+
+        @keyframes blink {
+            0% { opacity: 0.3; }
+            50% { opacity: 1; }
+            100% { opacity: 0.3; }
+        }
+
+        /* Footer / Controls */
+        footer {
+            padding: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .mic-btn {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background-color: var(--brand-teal);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(24, 138, 114, 0.3);
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        .mic-btn:hover {
+            transform: scale(1.05);
+            background-color: #14705c;
+        }
+        
+        .mic-btn.muted {
+            background-color: var(--panel-color);
+            border: 2px solid var(--border-color);
+        }
+        
+        .mic-btn.muted svg {
+            fill: var(--text-color);
+        }
+
+        .mic-btn svg {
+            width: 28px;
+            height: 28px;
+            fill: white;
+        }
+        
+        /* Utility */
+        .hidden {
+            display: none !important;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="safetyBanner">
+        <svg viewBox="0 0 24 24"><path d="M12 2L1 21h22M12 6l7.5 13h-15M11 10h2v4h-2M11 16h2v2h-2"/></svg>
+        <span id="safetyText">Safety Warning</span>
+    </div>
+
+    <header>
+        <div class="header-left">
+            <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+            <span>Fixora Voice</span>
+        </div>
+        <button class="end-call-btn">END CALL</button>
+    </header>
+
+    <main>
+        <div class="orb-container">
+            <div id="orb" class="fixora-orb orb-idle"></div>
+            <div class="ring ring-1"></div>
+            <div class="ring ring-2"></div>
+            <div class="ring ring-3"></div>
+        </div>
+
+        <div class="status-indicator">
+            <div class="dot"></div>
+            <span>LIVE</span>
+        </div>
+    </main>
+
+    <footer>
+        <button id="micBtn" class="mic-btn" onclick="toggleMic()">
+            <svg viewBox="0 0 24 24"><path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/></svg>
+        </button>
+    </footer>
+
+    <script>
+        let recognition = null;
+        let isListening = false;
+        let isSpeaking = false;
+        let isProcessing = false;
+        let lastTranscript = "";
+        let silenceTimer = null;
+        const selectedDevice = "__DEVICE_NAME__";
+
+        function initSpeechRecognition() {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRecognition) {
+                console.warn("Speech Recognition API not supported in this browser.");
+                return null;
+            }
+
+            recognition = new SpeechRecognition();
+            recognition.continuous = true;
+            recognition.interimResults = true;
+            recognition.lang = 'en-US';
+
+            recognition.onstart = function() {
+                isListening = true;
+                if (!isSpeaking && !isProcessing) {
+                    setOrbState('listening');
+                }
+                updateMicBtn();
+            };
+
+            recognition.onresult = function(event) {
+                if (isSpeaking || isProcessing) return;
+                
+                let interimTranscript = '';
+                let finalTranscript = '';
+
+                for (let i = event.resultIndex; i < event.results.length; ++i) {
+                    if (event.results[i].isFinal) {
+                        finalTranscript += event.results[i][0].transcript;
+                    } else {
+                        interimTranscript += event.results[i][0].transcript;
+                    }
+                }
+                
+                let currentText = finalTranscript || interimTranscript;
+                if (currentText.trim()) {
+                    lastTranscript = currentText;
+                    setOrbState('listening');
+                    
+                    clearTimeout(silenceTimer);
+                    silenceTimer = setTimeout(() => {
+                        if (lastTranscript.trim()) {
+                            handleUserFinishedSpeaking(lastTranscript);
+                        }
+                    }, 1300);
+                }
+            };
+
+            recognition.onerror = function(event) {
+                console.warn("Speech recognition error:", event.error);
+                if (event.error === 'not-allowed') {
+                    isListening = false;
+                    updateMicBtn();
+                    setOrbState('idle');
+                }
+            };
+
+            recognition.onend = function() {
+                isListening = false;
+                updateMicBtn();
+                if (!isSpeaking && !isProcessing) {
+                    try {
+                        recognition.start();
+                    } catch (e) {
+                        // ignore
+                    }
+                }
+            };
+
+            return recognition;
+        }
+
+        function setOrbState(state) {
+            const orb = document.getElementById('orb');
+            orb.className = `fixora-orb orb-${state}`;
+        }
+
+        function startListening() {
+            if (isSpeaking || isProcessing) return;
+            
+            if (!recognition) {
+                recognition = initSpeechRecognition();
+            }
+            
+            if (recognition && !isListening) {
+                try {
+                    recognition.start();
+                } catch(e) {
+                    console.log("Recognition start error", e);
+                }
+            }
+        }
+
+        function stopListening() {
+            if (recognition && isListening) {
+                recognition.stop();
+            }
+        }
+
+        function toggleMic() {
+            if (isSpeaking) {
+                window.speechSynthesis.cancel();
+                isSpeaking = false;
+                setOrbState('idle');
+                lastTranscript = "";
+                startListening();
+                return;
+            }
+            
+            if (isListening) {
+                stopListening();
+                setOrbState('idle');
+            } else {
+                startListening();
+            }
+            updateMicBtn();
+        }
+        
+        function updateMicBtn() {
+            const btn = document.getElementById('micBtn');
+            if (isListening) {
+                btn.classList.remove('muted');
+            } else {
+                btn.classList.add('muted');
+            }
+        }
+
+        async function handleUserFinishedSpeaking(query) {
+            isProcessing = true;
+            stopListening();
+            setOrbState('thinking');
+            
+            const endpoints = [
+                'http://127.0.0.1:8000/v1/query',
+                'http://localhost:8000/v1/query',
+                '/v1/query'
+            ];
+            
+            let data = null;
+            let success = false;
+            
+            for (const endpoint of endpoints) {
+                try {
+                    const response = await fetch(endpoint, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            query: query,
+                            device_name: selectedDevice,
+                            top_k: 5
+                        })
+                    });
+                    
+                    if (response.ok) {
+                        data = await response.json();
+                        success = true;
+                        break;
+                    }
+                } catch (e) {
+                    console.log(`Endpoint ${endpoint} failed`);
+                }
+            }
+            
+            isProcessing = false;
+            
+            if (success && data) {
+                displayAndSpeak(data, query);
+            } else {
+                displayAndSpeak({
+                    answer: "I'm having trouble connecting to the server. Please check your connection.",
+                    speech_text: "I'm having trouble connecting to the server. Please check your connection."
+                }, query);
+            }
+        }
+
+        function displayAndSpeak(data, userQuery) {
+            isSpeaking = true;
+            setOrbState('speaking');
+            
+            const safetyBanner = document.getElementById('safetyBanner');
+            const safetyText = document.getElementById('safetyText');
+            
+            if (data.has_high_priority_safety && data.safety_body) {
+                safetyBanner.style.display = 'flex';
+                safetyText.textContent = data.safety_body;
+            } else {
+                safetyBanner.style.display = 'none';
+            }
+            
+            const textToSpeak = data.speech_text || data.answer || "I'm sorry, I don't have a response.";
+            
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel(); 
+                
+                const utterance = new SpeechSynthesisUtterance(textToSpeak);
+                
+                utterance.onend = function() {
+                    finishSpeaking();
+                };
+                
+                utterance.onerror = function() {
+                    console.warn("Speech synthesis error");
+                    finishSpeaking();
+                };
+                
+                window.speechSynthesis.speak(utterance);
+            } else {
+                setTimeout(() => {
+                    finishSpeaking();
+                }, 4000);
+            }
+        }
+        
+        function finishSpeaking() {
+            isSpeaking = false;
+            setOrbState('listening');
+            lastTranscript = "";
+            startListening();
+        }
+
+        window.addEventListener('load', () => {
+            initSpeechRecognition();
+            setTimeout(() => {
+                startListening();
+            }, 500);
+            
+            document.querySelector('.end-call-btn').addEventListener('click', () => {
+                if (window.parent && window.parent.postMessage) {
+                    window.parent.postMessage({type: 'END_CALL'}, '*');
+                }
+                stopListening();
+                if ('speechSynthesis' in window) {
+                    window.speechSynthesis.cancel();
+                }
+                setOrbState('idle');
+            });
+        });
+    </script>
+</body>
+</html>
