@@ -5,11 +5,15 @@ from pathlib import Path
 from typing import Any, Optional
 
 import requests
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import HTMLResponse, JSONResponse
-from fastapi.staticfiles import StaticFiles
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel
+
+try:
+    from mangum import Mangum
+except ImportError:
+    Mangum = None
 
 app = FastAPI(title="Fixora Industrial AI Assistant", version="1.0.0")
 
@@ -21,15 +25,24 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Load device fault chunks from local json in memory
-CHUNKS_PATH = Path(__file__).resolve().parent.parent / "data" / "all_device_fault_chunks.json"
+# Search for chunks in all possible Vercel serverless locations
 CHUNKS_DATA = []
-if CHUNKS_PATH.exists():
-    try:
-        with open(CHUNKS_PATH, "r", encoding="utf-8") as f:
-            CHUNKS_DATA = json.load(f)
-    except Exception as e:
-        print(f"Error loading chunks: {e}")
+possible_paths = [
+    Path.cwd() / "data" / "all_device_fault_chunks.json",
+    Path(__file__).resolve().parent.parent / "data" / "all_device_fault_chunks.json",
+    Path(__file__).resolve().parent / "data" / "all_device_fault_chunks.json",
+    Path("/var/task/data/all_device_fault_chunks.json"),
+]
+
+for p in possible_paths:
+    if p.exists():
+        try:
+            with open(p, "r", encoding="utf-8") as f:
+                CHUNKS_DATA = json.load(f)
+            print(f"Successfully loaded {len(CHUNKS_DATA)} chunks from {p}")
+            break
+        except Exception as e:
+            print(f"Failed loading from {p}: {e}")
 
 class QueryRequest(BaseModel):
     query: str
@@ -40,8 +53,7 @@ def extract_error_codes(query: str) -> list[str]:
     pattern = re.compile(r"\b(?:ERR(?:OR)?[\s\-]*CODE|ERR(?:OR)?|CODE|FAULT|ALARM|E|F)[\s\-]*0*(\d{1,7})\b", re.IGNORECASE)
     matches = pattern.findall(query)
     direct = re.findall(r"\b([EF]\d{1,5})\b", query, re.IGNORECASE)
-    combined = list(dict.fromkeys(matches + direct))
-    return combined
+    return list(dict.fromkeys(matches + direct))
 
 def retrieve_chunks(query: str, device_name: Optional[str] = None, top_k: int = 5) -> list[dict]:
     if not CHUNKS_DATA:
@@ -63,14 +75,12 @@ def retrieve_chunks(query: str, device_name: Optional[str] = None, top_k: int = 
         manual = str(chunk.get("manual", "")).lower()
         score = 0.0
         
-        # Error code matches
         for c in codes:
             if re.search(r"\b" + re.escape(c) + r"\b", text, re.IGNORECASE):
                 score += 15.0
                 if any(w in text.upper() for w in ("ERR", "FAULT", "ALARM", "RANGE", "FAIL", "CHECK", "REPLACE", "BATTERY")):
                     score += 10.0
         
-        # Word overlap
         overlap = sum(1 for w in q_words if w in text_lower or w in manual)
         score += overlap * 1.2
         
@@ -131,84 +141,82 @@ STRICT RULES:
 
     user_prompt = f"Target Device: {device_name or 'General'}\nUser Query: {query}\n\nManual Context:\n{context_text}"
     
-    headers = {
-        "Authorization": f"Bearer {api_key}",
-        "Content-Type": "application/json",
-        "User-Agent": "Fixora/1.0"
-    }
+    if api_key:
+        headers = {
+            "Authorization": f"Bearer {api_key}",
+            "Content-Type": "application/json",
+            "User-Agent": "Fixora/1.0"
+        }
+        payload = {
+            "model": os.getenv("GROQ_MODEL", "qwen/qwen3.8-27b"),
+            "messages": [
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt}
+            ],
+            "temperature": 0.1,
+            "max_tokens": 1024,
+            "response_format": {"type": "json_object"}
+        }
+        try:
+            resp = requests.post("https://api.groq.com/openai/v1/chat/completions", headers=headers, json=payload, timeout=25)
+            if resp.status_code == 200:
+                res_json = resp.json()
+                content = res_json["choices"][0]["message"]["content"].strip()
+                content = re.sub(r"<think>[\s\S]*?</think>", "", content).strip()
+                parsed = json.loads(content)
+                parts = []
+                if parsed.get("has_high_priority_safety") and parsed.get("safety_body"):
+                    parts.append(f"### {parsed.get('safety_header', '⚠️ HIGH PRIORITY SAFETY INSTRUCTIONS DETECTED')}\n**{parsed['safety_body']}**\n")
+                if parsed.get("fault_meaning"):
+                    parts.append(f"**Fault Overview:** {parsed['fault_meaning']}\n")
+                if parsed.get("checklist"):
+                    parts.append("### 🔧 Step-by-Step Checklist")
+                    for s in parsed["checklist"]:
+                        parts.append(f"- {s}")
+                if parsed.get("source_citation"):
+                    c = parsed["source_citation"]
+                    parts.append(f"\n[{c.get('manual', 'Manual')} - p.{c.get('page', '?')}]")
+                parsed["status"] = "FOUND_IN_MANUAL"
+                parsed["answer"] = "\n".join(parts)
+                return parsed
+        except Exception as e:
+            print(f"Groq LLM call error: {e}")
     
-    payload = {
-        "model": os.getenv("GROQ_MODEL", "qwen/qwen3.8-27b"),
-        "messages": [
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": user_prompt}
-        ],
-        "temperature": 0.1,
-        "max_tokens": 1024,
-        "response_format": {"type": "json_object"}
-    }
-    
-    try:
-        resp = requests.post("https://api.groq.com/openai/v1/chat/completions", headers=headers, json=payload, timeout=25)
-        if resp.status_code == 200:
-            res_json = resp.json()
-            content = res_json["choices"][0]["message"]["content"].strip()
-            # Clean think tags if any
-            content = re.sub(r"<think>[\s\S]*?</think>", "", content).strip()
-            parsed = json.loads(content)
-            
-            # Format markdown answer
-            parts = []
-            if parsed.get("has_high_priority_safety") and parsed.get("safety_body"):
-                parts.append(f"### {parsed.get('safety_header', '⚠️ HIGH PRIORITY SAFETY INSTRUCTIONS DETECTED')}\n**{parsed['safety_body']}**\n")
-            if parsed.get("fault_meaning"):
-                parts.append(f"**Fault Overview:** {parsed['fault_meaning']}\n")
-            if parsed.get("checklist"):
-                parts.append("### 🔧 Step-by-Step Checklist")
-                for s in parsed["checklist"]:
-                    parts.append(f"- {s}")
-            if parsed.get("source_citation"):
-                c = parsed["source_citation"]
-                parts.append(f"\n[{c.get('manual', 'Manual')} - p.{c.get('page', '?')}]")
-            
-            parsed["status"] = "FOUND_IN_MANUAL"
-            parsed["answer"] = "\n".join(parts)
-            return parsed
-    except Exception as e:
-        print(f"LLM generation failed: {e}")
-    
-    # Fallback to direct context extraction
     top = context_chunks[0]
     return {
         "status": "FOUND_IN_MANUAL",
-        "fault_meaning": f"Reference found in {top['manual_name']} (Page {top['page_number']}).",
+        "fault_meaning": f"Reference procedure located in {top['manual_name']} (Page {top['page_number']}).",
         "checklist": [line.strip() for line in top["text"].splitlines() if len(line.strip()) > 10][:5],
         "source_citation": {"manual": top["manual_name"], "page": top["page_number"]},
         "speech_text": f"I found the procedure in the service manual on page {top['page_number']}.",
         "has_high_priority_safety": False,
-        "answer": f"**Manual Excerpt ({top['manual_name']} p.{top['page_number']}):**\n\n{top['text']}"
+        "answer": f"**Manual Reference ({top['manual_name']} p.{top['page_number']}):**\n\n{top['text']}"
     }
 
-@app.post("/v1/query")
 @app.post("/api/query")
+@app.post("/v1/query")
 async def query_endpoint(req: QueryRequest):
-    chunks = retrieve_chunks(req.query, req.device_name, req.top_k or 5)
-    result = call_groq_llm(req.query, chunks, req.device_name)
-    return JSONResponse(content=result)
+    try:
+        chunks = retrieve_chunks(req.query, req.device_name, req.top_k or 5)
+        result = call_groq_llm(req.query, chunks, req.device_name)
+        return JSONResponse(content=result)
+    except Exception as e:
+        return JSONResponse(
+            status_code=200,
+            content={
+                "status": "ERROR",
+                "answer": f"Query processing encountered an error: {str(e)}",
+                "speech_text": "An error occurred while processing your request.",
+                "checklist": [],
+                "source_citation": {"manual": "System", "page": "N/A"}
+            }
+        )
 
-@app.get("/health/live")
-@app.get("/health/ready")
 @app.get("/api/health")
+@app.get("/health/ready")
+@app.get("/health/live")
 async def health_check():
     return {"status": "ok", "chunks_loaded": len(CHUNKS_DATA), "engine": "Fixora Serverless"}
 
-# Serve the Fixora ChatGPT Single-Page UI at root /
-HTML_FILE = Path(__file__).resolve().parent.parent / "static" / "index.html"
-
-@app.get("/", response_class=HTMLResponse)
-async def get_index():
-    if HTML_FILE.exists():
-        with open(HTML_FILE, "r", encoding="utf-8") as f:
-            return HTMLResponse(content=f.read())
-    return HTMLResponse(content="<h1>Fixora API is live</h1><p>Visit /docs for API documentation.</p>")
-
+# Vercel Serverless Handler Bridge
+handler = Mangum(app) if Mangum else app
